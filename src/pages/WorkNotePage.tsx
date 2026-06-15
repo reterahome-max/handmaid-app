@@ -61,7 +61,7 @@ export function WorkNotePage() {
             placeholder="ひとことメモ（うまくできた／次はこうしたい…）"
             aria-label="メモ"
             rows={2}
-            className="mt-2.5 w-full resize-none rounded-xl border-2 border-[#D6A84F] bg-[#FFF8E4] px-3.5 py-2.5 text-[0.95rem] text-[#4A2F22] outline-none placeholder:text-[#A98C72] focus:border-[#B8793E]"
+            className="mt-2.5 w-full resize-none rounded-xl border-2 border-[#D6A84F] bg-[#FFF8E4] px-3.5 py-2.5 text-[1rem] text-[#4A2F22] outline-none placeholder:text-[#A98C72] focus:border-[#B8793E]"
           />
           <button
             type="submit"
@@ -129,7 +129,7 @@ export function WorkNotePage() {
                     placeholder="ひとことメモを書く…"
                     aria-label="メモ"
                     rows={2}
-                    className="mt-3 w-full resize-none rounded-lg border border-dashed border-[#D6A84F] bg-[#FFF8E4] px-3 py-2 text-[0.92rem] leading-relaxed text-[#4A2F22] outline-none placeholder:text-[#A98C72] focus:border-[#B8793E]"
+                    className="mt-3 w-full resize-none rounded-lg border border-dashed border-[#D6A84F] bg-[#FFF8E4] px-3 py-2 text-[1rem] leading-relaxed text-[#4A2F22] outline-none placeholder:text-[#A98C72] focus:border-[#B8793E]"
                   />
                 </article>
               ))}

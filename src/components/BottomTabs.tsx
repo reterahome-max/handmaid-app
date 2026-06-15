@@ -21,8 +21,8 @@ export function BottomTabs() {
   }
 
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-40 border-t-2 border-[#D8B982] bg-[#F7E4B5]/97 backdrop-blur-md pb-safe">
-      <div className="mx-auto flex max-w-md items-stretch justify-around">
+    <nav className="z-40 shrink-0 border-t-2 border-[#D8B982] bg-[#F7E4B5]/97 backdrop-blur-md pb-safe">
+      <div className="flex items-stretch justify-around">
         {TABS.map((tab) => {
           const badge = badgeFor(tab.to)
           return (
