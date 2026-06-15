@@ -1,0 +1,372 @@
+@import "tailwindcss";
+
+/*
+  クラフトのもり — 「おとぎの国のハンドメイドレシピ帳」デザインシステム
+  指定パレットに統一（生成り／羊皮紙／くすみゴールド・オレンジ・ブラウン）。
+  実用性を守りつつ、紙・絵本・森のやわらかい光を全画面に。
+  文字サイズは <html> の font-size を JS で変更し、rem 基準で全体が拡大。
+*/
+
+@theme {
+  /* ベース（生成り・紙） */
+  --color-paper: #fff7e8;
+  --color-paper-2: #fff3d6;
+  --color-paper-3: #f8ebc8;
+  --color-card: #fff1cf;
+  --color-card-2: #f7e4b5;
+
+  /* インク（濃いブラウン文字） */
+  --color-ink: #4a2f22;
+  --color-ink-soft: #7a5a45;
+  --color-ink-faint: #a98c72;
+
+  /* 枠線 */
+  --color-kraft: #d8b982;
+  --color-kraft-dark: #c9a86a;
+
+  /* アクセント */
+  --color-brown: #8a5a2c;
+  --color-accent: #b8793e;
+  --color-gold: #d6a84f;
+
+  /* サブ */
+  --color-forest: #6f8f72;
+  --color-lavender: #9a82b8;
+  --color-blush: #e8a7b8;
+}
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  color: #4a2f22;
+  background-color: #fff7e8;
+  /*
+    重ねた背景：小さな星（うっすら）／紙のドット／上からの森のやわらかい光／
+    右上の緑がかった光／左上の暖かいゴールドの光
+  */
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cg fill='%23b8956a' fill-opacity='0.12'%3E%3Cpath d='M40 22c1.4 6 4 8.6 10 10-6 1.4-8.6 4-10 10-1.4-6-4-8.6-10-10 6-1.4 8.6-4 10-10z'/%3E%3Cpath d='M186 70c1 4.3 2.9 6.2 7.2 7.2-4.3 1-6.2 2.9-7.2 7.2-1-4.3-2.9-6.2-7.2-7.2 4.3-1 6.2-2.9 7.2-7.2z'/%3E%3Cpath d='M120 150c1.2 5 3.4 7.2 8.4 8.4-5 1.2-7.2 3.4-8.4 8.4-1.2-5-3.4-7.2-8.4-8.4 5-1.2 7.2-3.4 8.4-8.4z'/%3E%3Cpath d='M70 196c.9 3.8 2.6 5.5 6.4 6.4-3.8.9-5.5 2.6-6.4 6.4-.9-3.8-2.6-5.5-6.4-6.4 3.8-.9 5.5-2.6 6.4-6.4z'/%3E%3Ccircle cx='205' cy='180' r='1.7'/%3E%3Ccircle cx='28' cy='120' r='1.5'/%3E%3Ccircle cx='150' cy='40' r='1.4'/%3E%3Ccircle cx='95' cy='90' r='1.3'/%3E%3C/g%3E%3C/svg%3E"),
+    radial-gradient(circle at 1px 1px, rgba(120, 85, 45, 0.05) 1px, transparent 0),
+    radial-gradient(135% 90% at 50% -25%, rgba(255, 243, 214, 0.9), transparent 55%),
+    radial-gradient(85% 65% at 100% 0%, rgba(111, 143, 114, 0.16), transparent 60%),
+    radial-gradient(85% 65% at 0% 0%, rgba(214, 168, 79, 0.18), transparent 60%);
+  background-size: 240px 240px, 22px 22px, 100% 100%, 100% 100%, 100% 100%;
+  background-attachment: fixed;
+  font-family: "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", "Yu Gothic",
+    "Meiryo", system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  line-height: 1.75;
+  letter-spacing: 0.01em;
+}
+
+#root {
+  min-height: 100dvh;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+input,
+textarea {
+  font-family: inherit;
+}
+
+* {
+  max-width: 100%;
+}
+
+/* 見出し用：絵本・手書き風フォント */
+.font-display {
+  font-family: "Klee One", "Zen Kaku Gothic New", "Yu Gothic", serif;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* ===== 世界観のための部品 ===== */
+
+/* 羊皮紙／魔法の本のページ風カード */
+.craft-card,
+.parchment {
+  background-color: #fff1cf;
+  background-image: linear-gradient(180deg, rgba(255, 250, 233, 0.6), rgba(247, 228, 181, 0.5));
+  border: 1.5px solid #d8b982;
+  border-radius: 1.1rem;
+  box-shadow: 0 2px 0 0 rgba(184, 152, 96, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.55);
+}
+
+/* タップで少し沈む */
+.craft-tap {
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.craft-tap:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 0 rgba(184, 152, 96, 0.4);
+}
+
+/* 木の看板／森の看板 */
+.signboard {
+  background-image: linear-gradient(180deg, #f7e4b5, #ecd49e);
+  border: 1.5px solid #c9a86a;
+  border-radius: 0.95rem;
+  box-shadow: 0 3px 0 0 rgba(160, 122, 64, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+/* しおり・リボン（下がV字に切れたタブ） */
+.bookmark {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 78%, 0 100%);
+}
+
+/* 紙のラベル（セクション見出し用） */
+.label-tag {
+  background-image: linear-gradient(180deg, #fff1cf, #f2e2b8);
+  border: 1.5px solid #c9a86a;
+  border-radius: 0.55rem;
+  box-shadow: 0 2px 0 0 rgba(160, 122, 64, 0.3);
+}
+
+/* メモ帳・付せん */
+.memo {
+  border-radius: 0.4rem 0.9rem 0.5rem 0.8rem;
+  border: 1.5px solid rgba(120, 85, 45, 0.2);
+  box-shadow: 1px 2px 0 0 rgba(120, 85, 45, 0.14);
+}
+
+/* ステッチ（点線の縫い目）枠 */
+.stitch {
+  border: 2px dashed rgba(160, 110, 55, 0.4);
+}
+
+/* 主ボタン（くすみオレンジ〜ブラウン・木の看板風） */
+.btn-primary {
+  background-image: linear-gradient(180deg, #c98a4a, #b8793e);
+  color: #fff;
+  border: 1.5px solid #8a5a2c;
+  border-radius: 1.4rem;
+  box-shadow: 0 4px 0 0 #8a5a2c, inset 0 1px 0 rgba(255, 255, 255, 0.28);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.btn-primary:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 0 #8a5a2c;
+}
+
+/* 副ボタン（ゴールド寄り・薄め） */
+.btn-soft {
+  background-image: linear-gradient(180deg, #f7e4b5, #ecd49e);
+  color: #8a5a2c;
+  border: 1.5px solid #c9a86a;
+  border-radius: 1.4rem;
+  box-shadow: 0 3px 0 0 rgba(160, 122, 64, 0.4);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.btn-soft:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 0 rgba(160, 122, 64, 0.4);
+}
+
+/* マスキングテープ風の帯 */
+.washi {
+  position: absolute;
+  height: 1.4rem;
+  width: 5.5rem;
+  opacity: 0.85;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  mask-image: linear-gradient(90deg, transparent 0, #000 4px, #000 calc(100% - 4px), transparent 100%);
+}
+
+/* 見出し下のラフな下線（くすみゴールド） */
+.underline-craft {
+  background-image: linear-gradient(transparent 70%, rgba(214, 168, 79, 0.4) 0);
+  padding-bottom: 0.05em;
+}
+
+/* 木の棚（本棚風の台） */
+.shelf {
+  background-image: linear-gradient(180deg, #d8b982, #c49a5e);
+  border-radius: 0 0 0.4rem 0.4rem;
+  box-shadow: 0 3px 5px rgba(120, 85, 45, 0.25);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: #d8b982;
+  border-radius: 9999px;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ===== 初回オープニング：もりの扉 ===== */
+.gate-stage {
+  position: relative;
+  width: 15rem;
+  max-width: 78vw;
+  height: 19rem;
+  margin: 0 auto;
+  perspective: 1100px;
+}
+
+/* 扉のうしろの、やわらかい光 */
+.gate-glow {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  z-index: 0;
+  width: 78%;
+  height: 78%;
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 244, 214, 0.95),
+    rgba(214, 168, 79, 0.4) 45%,
+    transparent 72%
+  );
+  opacity: 0.4;
+  filter: blur(6px);
+  transition: opacity 1s ease, transform 1.3s ease;
+}
+.gate-stage.is-open .gate-glow {
+  opacity: 1;
+  transform: scale(1.4);
+}
+.gate-stage:not(.is-open) .gate-glow {
+  animation: gate-breathe 3.4s ease-in-out infinite;
+}
+@keyframes gate-breathe {
+  0%, 100% { opacity: 0.32; }
+  50% { opacity: 0.52; }
+}
+
+/* 木の扉の枠 */
+.gate-frame {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  transform-style: preserve-3d;
+}
+
+/* 扉（左右の板） */
+.gate-leaf {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  background-image:
+    repeating-linear-gradient(90deg, rgba(74, 47, 34, 0.07) 0 1px, transparent 1px 1.5rem),
+    linear-gradient(180deg, #c9985e, #a06b3a);
+  border: 2px solid #7d5230;
+  box-shadow: inset 0 0 0 5px rgba(255, 255, 255, 0.07),
+    inset 0 10px 22px rgba(74, 47, 34, 0.18);
+  transition: transform 1.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+  backface-visibility: hidden;
+  overflow: hidden;
+}
+.gate-leaf-left {
+  left: 0;
+  transform-origin: left center;
+  border-top-left-radius: 6.5rem;
+  border-right-width: 1px;
+}
+.gate-leaf-right {
+  right: 0;
+  transform-origin: right center;
+  border-top-right-radius: 6.5rem;
+  border-left-width: 1px;
+}
+.gate-stage.is-open .gate-leaf-left {
+  transform: rotateY(-118deg);
+}
+.gate-stage.is-open .gate-leaf-right {
+  transform: rotateY(118deg);
+}
+
+/* 扉の彫り（葉・星） */
+.gate-carve {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2.1rem;
+  opacity: 0.3;
+  color: #5e3c20;
+}
+
+/* 取っ手（ゴールド） */
+.gate-knob {
+  position: absolute;
+  top: 50%;
+  width: 0.62rem;
+  height: 0.62rem;
+  border-radius: 9999px;
+  background: #d6a84f;
+  box-shadow: 0 0 0 2px #a87f33;
+  transform: translateY(-50%);
+}
+
+/* 粒（星・葉） */
+.gate-particles {
+  position: absolute;
+  inset: -10% -20%;
+  z-index: 20;
+  pointer-events: none;
+}
+.gate-particle {
+  position: absolute;
+  opacity: 0;
+}
+.gate-stage.is-open .gate-particle {
+  animation: gate-float 2.1s ease-out forwards;
+}
+@keyframes gate-float {
+  0% { opacity: 0; transform: translate(0, 0) scale(0.5); }
+  25% { opacity: 1; }
+  100% {
+    opacity: 0;
+    transform: translate(var(--dx, 0), var(--dy, -70px)) scale(1.1) rotate(var(--rot, 0deg));
+  }
+}
+
+/* アニメーションが苦手な方への配慮 */
+@media (prefers-reduced-motion: reduce) {
+  .gate-leaf { transition: none; }
+  .gate-stage:not(.is-open) .gate-glow { animation: none; }
+  .gate-stage.is-open .gate-particle { animation: none; opacity: 0; }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "クラフトのもり",
+  "short_name": "クラフトのもり",
+  "description": "おとぎの国のハンドメイドレシピ帳。小さなレシピ帳から、作りたいものを探そう。",
+  "lang": "ja",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f4ecd9",
+  "theme_color": "#c2683f",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any",
+      "purpose": "any maskable"
+    }
+  ]
+}
